@@ -14,6 +14,10 @@ class BaseModel(models.Model):
         return NotImplementedError
 
 class Topic(BaseModel):
+    class Meta:
+        verbose_name = "话题"
+        verbose_name_plural = "话题"
+
     title = models.CharField(help_text="话题标题", max_length=255, unique=True)
     content = models.TextField(help_text="话题内容")
     is_online = models.BooleanField(help_text="话题是否在线", default=True)
@@ -23,6 +27,10 @@ class Topic(BaseModel):
         return "{}: {}".format(self.id, self.title[0:20])
 
 class Comment(BaseModel):
+    class Meta:
+        verbose_name = "评论"
+        verbose_name_plural = "评论"
+        
     content = models.TextField(help_text="评论内容")
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE, help_text="关联话题")
     up = models.IntegerField(help_text="支持", default=0)
