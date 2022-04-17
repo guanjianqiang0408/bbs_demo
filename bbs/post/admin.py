@@ -1,7 +1,8 @@
 from django.contrib import admin
 from post.models import Topic, Comment
-# Register your models here.
 
+
+# Register your models here.
 @admin.register(Topic)
 class TopicAdmin(admin.ModelAdmin):
     # 动作（批量上线或下线）
@@ -52,6 +53,7 @@ class TopicAdmin(admin.ModelAdmin):
     list_max_show_all = 2
     # 详情列展示
     fields = [('user', 'title'), 'content', 'is_online']
+
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
