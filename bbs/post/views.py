@@ -2,7 +2,7 @@ from django.shortcuts import render, HttpResponse
 from django.http import JsonResponse
 from post.models import Topic, Comment
 from post.post_service import build_topic_base_info, build_topic_detail_info, add_comment_to_topic
-
+from post.forms import TopicSearchForm
 
 # Create your views here.
 def index(request):
@@ -40,3 +40,17 @@ def add_comment_to_topic_view(request):
     if topic and content:
         return JsonResponse({"id": add_comment_to_topic(topic, content).id})
     return JsonResponse({})
+
+
+def search_topic(request):
+    form = TopicSearchForm(request.GET)
+    if form.is_valid():
+        title = form.cleaned_data.get("title")
+        topic = Topic.objects.filter(title__contains=title)
+        return render(request, 'topic_list.html', context={"topic": topic})
+    else:
+        return render(request, 'search_topic.html', context={"form": form})
+
+
+def search_topic_form(request):
+    return render(request, 'search_topic.html', context={'form': TopicSearchForm()})
