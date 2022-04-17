@@ -6,7 +6,10 @@ from post.post_service import build_topic_base_info, build_topic_detail_info, ad
 
 # Create your views here.
 def index(request):
-    return HttpResponse("hello world")
+    """
+    using django templates
+    """
+    return render(request, 'hello_world.html', context={"data": "hello world"})
 
 
 def topic_list_view(request):
